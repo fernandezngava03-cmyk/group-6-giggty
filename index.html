@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wander Malaysia – Explore Malaysia with Comfort &amp; Confidence</title>
+  <meta name="description" content="Wander Malaysia Travel Agency – Your trusted partner for flights, hotels, and travel packages across Malaysia." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== LOADING SCREEN ===== -->
+  <div id="loader" class="loader-overlay">
+    <div class="loader-content">
+      <div class="loader-logo">
+        <i class="fas fa-paper-plane"></i>
+        <span>Wander Malaysia</span>
+      </div>
+      <div class="loader-spinner"></div>
+      <p>Preparing your journey...</p>
+    </div>
+  </div>
+
+  <!-- ===== NAVIGATION BAR ===== -->
+  <header id="navbar" class="navbar">
+    <div class="nav-container">
+
+      <!-- Logo -->
+      <a href="index.html" class="nav-logo">
+        <i class="fas fa-paper-plane"></i>
+        <span>Wander <strong>Malaysia</strong></span>
+      </a>
+
+      <!-- Desktop Menu -->
+      <nav class="nav-menu" id="navMenu">
+        <ul class="nav-links">
+          <li><a href="#home" class="nav-link active"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="#flights" class="nav-link"><i class="fas fa-plane"></i> Flights</a></li>
+          <li><a href="#hotels" class="nav-link"><i class="fas fa-hotel"></i> Hotels</a></li>
+          <li><a href="#packages" class="nav-link"><i class="fas fa-suitcase"></i> Packages</a></li>
+          <li><a href="#about" class="nav-link"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+        </ul>
+      </nav>
+
+      <!-- Auth Buttons -->
+      <div class="nav-auth">
+        <button class="btn-login" id="btnLogin" onclick="openModal('loginModal')">
+          <i class="fas fa-user"></i> Login
+        </button>
+        <button class="btn-register" onclick="openModal('registerModal')">
+          Register
+        </button>
+        <a href="admin.html" class="btn-admin" title="Admin Panel">
+          <i class="fas fa-cog"></i>
+        </a>
+      </div>
+
+      <!-- Hamburger Menu -->
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== HERO SECTION ===== -->
+  <section id="home" class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content fade-in">
+      <p class="hero-subtitle">Welcome to Wander Malaysia</p>
+      <h1 class="hero-title">Explore Malaysia with<br /><span class="gradient-text">Comfort &amp; Confidence</span></h1>
+      <p class="hero-desc">Discover breathtaking destinations, unbeatable deals, and unforgettable experiences across Malaysia's most iconic locations.</p>
+
+      <!-- Search Box -->
+      <div class="search-box">
+        <!-- Tabs -->
+        <div class="search-tabs">
+          <button class="search-tab active" data-tab="flights" onclick="switchTab('flights')">
+            <i class="fas fa-plane"></i> Flights
+          </button>
+          <button class="search-tab" data-tab="hotels" onclick="switchTab('hotels')">
+            <i class="fas fa-hotel"></i> Hotels
+          </button>
+          <button class="search-tab" data-tab="packages" onclick="switchTab('packages')">
+            <i class="fas fa-suitcase"></i> Packages
+          </button>
+        </div>
+
+        <!-- Flights Tab -->
+        <div class="search-form active" id="tab-flights">
+          <div class="search-fields">
+            <div class="search-field">
+              <label><i class="fas fa-map-marker-alt"></i> From</label>
+              <input type="text" placeholder="Departure city" id="flightFrom" />
+            </div>
+            <div class="search-swap" onclick="swapCities()">
+              <i class="fas fa-exchange-alt"></i>
+            </div>
+            <div class="search-field">
+              <label><i class="fas fa-map-marker-alt"></i> To</label>
+              <input type="text" placeholder="Destination city" id="flightTo" />
+            </div>
+            <div class="search-field">
+              <label><i class="fas fa-calendar-alt"></i> Depart</label>
+              <input type="date" id="flightDate" />
+            </div>
+            <div class="search-field">
+              <label><i class="fas fa-users"></i> Passengers</label>
+              <select id="flightPassengers">
+                <option>1 Adult</option>
+                <option>2 Adults</option>
+                <option>3 Adults</option>
+                <option>4 Adults</option>
+              </select>
+            </div>
+            <button class="btn-search" onclick="handleSearch('flights')">
+              <i class="fas fa-search"></i> Search Now
+            </button>
+          </div>
+        </div>
+
+        <!-- Hotels Tab -->
+        <div class="search-form" id="tab-hotels">
+          <div class="search-fields">
+            <div class="search-field wide">
+              <label><i class="fas fa-map-marker-alt"></i> Destination</label>
+              <input type="text" placeholder="City, hotel, or landmark" id="hotelDest" />
+            </div>
+            <div class="search-field">
+              <label><i class="fas fa-calendar-alt"></i> Check-in</label>
+              <input type="date" id="hotelCheckin" />
+            </div>
+            <div class="search-field">
+              <label><i class="fas fa-calendar-alt"></i> Check-out</label>
+              <input type="date" id="hotelCheckout" />
+            </div>
+            <div class="search-field">
+              <label><i class="fas fa-users"></i> Guests</label>
+              <select id="hotelGuests">
+                <option>1 Guest</option>
+                <option>2 Guests</option>
+                <option>3 Guests</option>
+                <option>4 Guests</option>
+              </select>
+            </div>
+            <button class="btn-search" onclick="handleSearch('hotels')">
+              <i class="fas fa-search"></i> Search Now
+            </button>
+          </div>
+        </div>
+
+        <!-- Packages Tab -->
+        <div class="search-form" id="tab-packages">
+          <div class="search-fields">
+            <div class="search-field wide">
+              <label><i class="fas fa-globe-asia"></i> Destination</label>
+              <input type="text" placeholder="Search packages by destination" id="pkgDest" />
+            </div>
+            <div class="search-field">
+              <label><i class="fas fa-calendar-alt"></i> Travel Date</label>
+              <input type="date" id="pkgDate" />
+            </div>
+            <div class="search-field">
+              <label><i class="fas fa-users"></i> Travellers</label>
+              <select id="pkgTravellers">
+                <option>1 Person</option>
+                <option>2 Persons</option>
+                <option>3 Persons</option>
+                <option>4 Persons</option>
+              </select>
+            </div>
+            <button class="btn-search" onclick="handleSearch('packages')">
+              <i class="fas fa-search"></i> Search Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="hero-scroll">
+      <span>Scroll to explore</span>
+      <i class="fas fa-chevron-down bounce"></i>
+    </div>
+  </section>
+
+  <!-- ===== STATS BANNER ===== -->
+  <section class="stats-banner">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item fade-in-up">
+          <span class="stat-number" data-target="50000">0</span><span>+</span>
+          <p>Happy Travellers</p>
+        </div>
+        <div class="stat-item fade-in-up">
+          <span class="stat-number" data-target="120">0</span><span>+</span>
+          <p>Destinations</p>
+        </div>
+        <div class="stat-item fade-in-up">
+          <span class="stat-number" data-target="350">0</span><span>+</span>
+          <p>Travel Packages</p>
+        </div>
+        <div class="stat-item fade-in-up">
+          <span class="stat-number" data-target="15">0</span><span>+</span>
+          <p>Years Experience</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== POPULAR DESTINATIONS ===== -->
+  <section id="destinations" class="section destinations-section">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">Explore</span>
+        <h2 class="section-title">Popular Destinations</h2>
+        <p class="section-subtitle">Discover Malaysia's most beloved travel spots, from vibrant cities to pristine island paradises.</p>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar fade-in-up">
+        <button class="filter-btn active" data-filter="all" onclick="filterDestinations('all')">All</button>
+        <button class="filter-btn" data-filter="city" onclick="filterDestinations('city')">Cities</button>
+        <button class="filter-btn" data-filter="beach" onclick="filterDestinations('beach')">Beaches</button>
+        <button class="filter-btn" data-filter="nature" onclick="filterDestinations('nature')">Nature</button>
+      </div>
+
+      <div class="destinations-grid" id="destinationsGrid">
+
+        <!-- Kuala Lumpur -->
+        <div class="dest-card fade-in-up" data-category="city">
+          <div class="dest-card-img">
+            <img src="images/kl.jpg" alt="Kuala Lumpur" loading="lazy" />
+            <div class="dest-badge">Most Popular</div>
+            <div class="dest-overlay">
+              <button class="btn-explore" onclick="openModal('bookingModal')">Explore Now</button>
+            </div>
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-top">
+              <h3>Kuala Lumpur</h3>
+              <span class="dest-rating"><i class="fas fa-star"></i> 4.9</span>
+            </div>
+            <p>Malaysia's dazzling capital – home to the iconic Petronas Twin Towers, vibrant street food, and world-class shopping malls.</p>
+            <div class="dest-card-footer">
+              <div class="dest-price">
+                <span class="price-from">From</span>
+                <span class="price-amount">RM 299</span>
+                <span class="price-per">/person</span>
+              </div>
+              <button class="btn-book" onclick="openModal('bookingModal')">Book Now</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Langkawi -->
+        <div class="dest-card fade-in-up" data-category="beach">
+          <div class="dest-card-img">
+            <img src="images/langkawi.jpg" alt="Langkawi" loading="lazy" />
+            <div class="dest-badge beach">Island Escape</div>
+            <div class="dest-overlay">
+              <button class="btn-explore" onclick="openModal('bookingModal')">Explore Now</button>
+            </div>
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-top">
+              <h3>Langkawi</h3>
+              <span class="dest-rating"><i class="fas fa-star"></i> 4.8</span>
+            </div>
+            <p>A stunning archipelago of 99 islands with crystal-clear waters, duty-free shopping, and spectacular cable car rides.</p>
+            <div class="dest-card-footer">
+              <div class="dest-price">
+                <span class="price-from">From</span>
+                <span class="price-amount">RM 499</span>
+                <span class="price-per">/person</span>
+              </div>
+              <button class="btn-book" onclick="openModal('bookingModal')">Book Now</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Penang -->
+        <div class="dest-card fade-in-up" data-category="city">
+          <div class="dest-card-img">
+            <img src="images/penang.jpg" alt="Penang" loading="lazy" />
+            <div class="dest-badge food">Food Paradise</div>
+            <div class="dest-overlay">
+              <button class="btn-explore" onclick="openModal('bookingModal')">Explore Now</button>
+            </div>
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-top">
+              <h3>Penang</h3>
+              <span class="dest-rating"><i class="fas fa-star"></i> 4.7</span>
+            </div>
+            <p>UNESCO World Heritage city famous for its multicultural heritage, incredible street art, and Malaysia's finest street food.</p>
+            <div class="dest-card-footer">
+              <div class="dest-price">
+                <span class="price-from">From</span>
+                <span class="price-amount">RM 349</span>
+                <span class="price-per">/person</span>
+              </div>
+              <button class="btn-book" onclick="openModal('bookingModal')">Book Now</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sabah -->
+        <div class="dest-card fade-in-up" data-category="nature">
+          <div class="dest-card-img">
+            <img src="images/sabah.jpg" alt="Sabah" loading="lazy" />
+            <div class="dest-badge nature">Nature Wonder</div>
+            <div class="dest-overlay">
+              <button class="btn-explore" onclick="openModal('bookingModal')">Explore Now</button>
+            </div>
+          </div>
+          <div class="dest-card-body">
+            <div class="dest-card-top">
+              <h3>Sabah</h3>
+              <span class="dest-rating"><i class="fas fa-star"></i> 4.8</span>
+            </div>
+            <p>Borneo's crown jewel – home to Mount Kinabalu, orangutans, pristine coral reefs, and breathtaking rainforest adventures.</p>
+            <div class="dest-card-footer">
+              <div class="dest-price">
+                <span class="price-from">From</span>
+                <span class="price-amount">RM 699</span>
+                <span class="price-per">/person</span>
+              </div>
+              <button class="btn-book" onclick="openModal('bookingModal')">Book Now</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="section-cta fade-in-up">
+        <button class="btn-outline" onclick="document.getElementById('packages').scrollIntoView({behavior:'smooth'})">
+          View All Destinations <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRAVEL PACKAGES ===== -->
+  <section id="packages" class="section packages-section">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">Best Deals</span>
+        <h2 class="section-title">Featured Travel Packages</h2>
+        <p class="section-subtitle">Handcrafted packages with everything included – flights, hotels, tours, and more.</p>
+      </div>
+
+      <!-- Package Search Filter -->
+      <div class="pkg-search-bar fade-in-up">
+        <div class="pkg-search-input">
+          <i class="fas fa-search"></i>
+          <input type="text" id="packageSearch" placeholder="Search packages by name or destination..." oninput="filterPackages()" />
+        </div>
+        <select id="packageSort" onchange="sortPackages()">
+          <option value="default">Sort by: Default</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="duration">Duration</option>
+        </select>
+      </div>
+
+      <div class="packages-grid" id="packagesGrid">
+        <!-- Package cards are rendered by JavaScript -->
+      </div>
+
+      <div id="noPackages" class="no-results" style="display:none;">
+        <i class="fas fa-search"></i>
+        <p>No packages found. Try a different search term.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FLIGHTS SECTION ===== -->
+  <section id="flights" class="section flights-section">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">Fly Smart</span>
+        <h2 class="section-title">Popular Flight Routes</h2>
+        <p class="section-subtitle">Find the best fares on Malaysia's most-travelled domestic and international routes.</p>
+      </div>
+      <div class="flights-grid fade-in-up">
+        <div class="flight-card">
+          <div class="flight-route">
+            <span class="flight-city">Kuala Lumpur</span>
+            <div class="flight-line"><i class="fas fa-plane"></i></div>
+            <span class="flight-city">Kota Kinabalu</span>
+          </div>
+          <div class="flight-info">
+            <span><i class="fas fa-clock"></i> 2h 30m</span>
+            <span><i class="fas fa-calendar"></i> Daily</span>
+          </div>
+          <div class="flight-price">From <strong>RM 189</strong></div>
+          <button class="btn-flight" onclick="openModal('bookingModal')">Book Flight</button>
+        </div>
+        <div class="flight-card">
+          <div class="flight-route">
+            <span class="flight-city">Kuala Lumpur</span>
+            <div class="flight-line"><i class="fas fa-plane"></i></div>
+            <span class="flight-city">Langkawi</span>
+          </div>
+          <div class="flight-info">
+            <span><i class="fas fa-clock"></i> 1h 10m</span>
+            <span><i class="fas fa-calendar"></i> Daily</span>
+          </div>
+          <div class="flight-price">From <strong>RM 129</strong></div>
+          <button class="btn-flight" onclick="openModal('bookingModal')">Book Flight</button>
+        </div>
+        <div class="flight-card">
+          <div class="flight-route">
+            <span class="flight-city">Kuala Lumpur</span>
+            <div class="flight-line"><i class="fas fa-plane"></i></div>
+            <span class="flight-city">Penang</span>
+          </div>
+          <div class="flight-info">
+            <span><i class="fas fa-clock"></i> 55m</span>
+            <span><i class="fas fa-calendar"></i> Daily</span>
+          </div>
+          <div class="flight-price">From <strong>RM 99</strong></div>
+          <button class="btn-flight" onclick="openModal('bookingModal')">Book Flight</button>
+        </div>
+        <div class="flight-card">
+          <div class="flight-route">
+            <span class="flight-city">Kuala Lumpur</span>
+            <div class="flight-line"><i class="fas fa-plane"></i></div>
+            <span class="flight-city">Kuching</span>
+          </div>
+          <div class="flight-info">
+            <span><i class="fas fa-clock"></i> 1h 45m</span>
+            <span><i class="fas fa-calendar"></i> Daily</span>
+          </div>
+          <div class="flight-price">From <strong>RM 159</strong></div>
+          <button class="btn-flight" onclick="openModal('bookingModal')">Book Flight</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOTELS SECTION ===== -->
+  <section id="hotels" class="section hotels-section">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">Stay in Style</span>
+        <h2 class="section-title">Top-Rated Hotels</h2>
+        <p class="section-subtitle">From luxury resorts to cosy boutique stays – find your perfect accommodation across Malaysia.</p>
+      </div>
+      <div class="hotels-grid fade-in-up">
+        <div class="hotel-card">
+          <div class="hotel-img">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" alt="Mandarin Oriental KL" loading="lazy" />
+            <div class="hotel-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="hotel-body">
+            <h3>Mandarin Oriental KL</h3>
+            <p><i class="fas fa-map-marker-alt"></i> Kuala Lumpur City Centre</p>
+            <div class="hotel-amenities">
+              <span><i class="fas fa-wifi"></i> WiFi</span>
+              <span><i class="fas fa-swimming-pool"></i> Pool</span>
+              <span><i class="fas fa-utensils"></i> Dining</span>
+              <span><i class="fas fa-spa"></i> Spa</span>
+            </div>
+            <div class="hotel-footer">
+              <div class="hotel-price">RM <strong>680</strong>/night</div>
+              <button class="btn-hotel" onclick="openModal('bookingModal')">Book Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="hotel-card">
+          <div class="hotel-img">
+            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80" alt="The Westin Langkawi" loading="lazy" />
+            <div class="hotel-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="hotel-body">
+            <h3>The Westin Langkawi</h3>
+            <p><i class="fas fa-map-marker-alt"></i> Langkawi, Kedah</p>
+            <div class="hotel-amenities">
+              <span><i class="fas fa-wifi"></i> WiFi</span>
+              <span><i class="fas fa-swimming-pool"></i> Pool</span>
+              <span><i class="fas fa-umbrella-beach"></i> Beach</span>
+              <span><i class="fas fa-spa"></i> Spa</span>
+            </div>
+            <div class="hotel-footer">
+              <div class="hotel-price">RM <strong>520</strong>/night</div>
+              <button class="btn-hotel" onclick="openModal('bookingModal')">Book Now</button>
+            </div>
+          </div>
+        </div>
+        <div class="hotel-card">
+          <div class="hotel-img">
+            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=80" alt="Eastern &amp; Oriental Hotel Penang" loading="lazy" />
+            <div class="hotel-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="hotel-body">
+            <h3>Eastern &amp; Oriental Hotel</h3>
+            <p><i class="fas fa-map-marker-alt"></i> George Town, Penang</p>
+            <div class="hotel-amenities">
+              <span><i class="fas fa-wifi"></i> WiFi</span>
+              <span><i class="fas fa-swimming-pool"></i> Pool</span>
+              <span><i class="fas fa-utensils"></i> Dining</span>
+              <span><i class="fas fa-concierge-bell"></i> Butler</span>
+            </div>
+            <div class="hotel-footer">
+              <div class="hotel-price">RM <strong>450</strong>/night</div>
+              <button class="btn-hotel" onclick="openModal('bookingModal')">Book Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== WHY CHOOSE US ===== -->
+  <section id="about" class="section why-section">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">Why Us</span>
+        <h2 class="section-title">Why Choose Wander Malaysia?</h2>
+        <p class="section-subtitle">We are committed to delivering exceptional travel experiences with trust, transparency, and care.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card fade-in-up">
+          <div class="why-icon">
+            <i class="fas fa-tag"></i>
+          </div>
+          <h3>Best Price Guarantee</h3>
+          <p>We match or beat any competitor's price. Book with confidence knowing you're always getting the best deal available.</p>
+        </div>
+        <div class="why-card fade-in-up">
+          <div class="why-icon">
+            <i class="fas fa-headset"></i>
+          </div>
+          <h3>24/7 Customer Support</h3>
+          <p>Our dedicated travel experts are available around the clock to assist you before, during, and after your journey.</p>
+        </div>
+        <div class="why-card fade-in-up">
+          <div class="why-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3>Secure Payment</h3>
+          <p>All transactions are protected with bank-grade SSL encryption. Your financial data is always safe with us.</p>
+        </div>
+        <div class="why-card fade-in-up">
+          <div class="why-icon">
+            <i class="fas fa-award"></i>
+          </div>
+          <h3>Trusted Local Agency</h3>
+          <p>Licensed and accredited by Tourism Malaysia, with over 15 years of crafting memorable local travel experiences.</p>
+        </div>
+        <div class="why-card fade-in-up">
+          <div class="why-icon">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+          <h3>Expert Local Guides</h3>
+          <p>Our certified local guides bring destinations to life with insider knowledge, cultural insights, and personalised tours.</p>
+        </div>
+        <div class="why-card fade-in-up">
+          <div class="why-icon">
+            <i class="fas fa-undo-alt"></i>
+          </div>
+          <h3>Flexible Cancellation</h3>
+          <p>Plans change. Enjoy peace of mind with our flexible booking policies and hassle-free refund process.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER SECTION ===== -->
+  <section class="newsletter-section">
+    <div class="container">
+      <div class="newsletter-content fade-in-up">
+        <div class="newsletter-text">
+          <h2>Get Exclusive Travel Deals</h2>
+          <p>Subscribe to our newsletter and be the first to receive special offers, travel tips, and destination inspiration.</p>
+        </div>
+        <form class="newsletter-form" onsubmit="handleNewsletter(event)">
+          <div class="newsletter-input-group">
+            <input type="email" placeholder="Enter your email address" required />
+            <button type="submit" class="btn-newsletter">
+              <i class="fas fa-paper-plane"></i> Subscribe
+            </button>
+          </div>
+          <p class="newsletter-note"><i class="fas fa-lock"></i> No spam, unsubscribe anytime.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section id="contact" class="section contact-section">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <span class="section-tag">Get in Touch</span>
+        <h2 class="section-title">Contact Us</h2>
+        <p class="section-subtitle">Have questions or need help planning your trip? We're here to help.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info fade-in-up">
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <h4>Our Office</h4>
+              <p>Level 12, Menara Wander, Jalan Ampang, 50450 Kuala Lumpur, Malaysia</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+            <div>
+              <h4>Phone</h4>
+              <p>+60 3-2168 8888<br />+60 12-345 6789 (WhatsApp)</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <h4>Email</h4>
+              <p>hello@wandermalaysia.com<br />support@wandermalaysia.com</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <h4>Business Hours</h4>
+              <p>Mon – Fri: 9:00 AM – 6:00 PM<br />Sat: 9:00 AM – 1:00 PM</p>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form fade-in-up" onsubmit="handleContact(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="Your full name" required />
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" placeholder="your@email.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <input type="text" placeholder="How can we help?" required />
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="5" placeholder="Tell us about your travel plans or questions..." required></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+
+          <!-- Company Info -->
+          <div class="footer-col footer-brand">
+            <a href="index.html" class="footer-logo">
+              <i class="fas fa-paper-plane"></i>
+              <span>Wander <strong>Malaysia</strong></span>
+            </a>
+            <p>Your trusted travel partner for exploring the best of Malaysia. We create unforgettable journeys with comfort, confidence, and care.</p>
+            <div class="social-links">
+              <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-link" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+              <a href="#" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div class="footer-col">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+              <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+              <li><a href="#flights"><i class="fas fa-chevron-right"></i> Flights</a></li>
+              <li><a href="#hotels"><i class="fas fa-chevron-right"></i> Hotels</a></li>
+              <li><a href="#packages"><i class="fas fa-chevron-right"></i> Packages</a></li>
+              <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+              <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
+            </ul>
+          </div>
+
+          <!-- Destinations -->
+          <div class="footer-col">
+            <h4>Top Destinations</h4>
+            <ul class="footer-links">
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Kuala Lumpur</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Langkawi</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Penang</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Sabah</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Sarawak</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right"></i> Cameron Highlands</a></li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div class="footer-col">
+            <h4>Contact Details</h4>
+            <ul class="footer-contact">
+              <li><i class="fas fa-map-marker-alt"></i> Level 12, Menara Wander, Jalan Ampang, KL</li>
+              <li><i class="fas fa-phone-alt"></i> +60 3-2168 8888</li>
+              <li><i class="fas fa-envelope"></i> hello@wandermalaysia.com</li>
+              <li><i class="fas fa-clock"></i> Mon–Fri: 9AM – 6PM</li>
+            </ul>
+            <div class="payment-icons">
+              <i class="fab fa-cc-visa"></i>
+              <i class="fab fa-cc-mastercard"></i>
+              <i class="fab fa-cc-paypal"></i>
+              <i class="fas fa-university"></i>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2025 Wander Malaysia Travel Agency. All rights reserved. | Licensed by Tourism Malaysia</p>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== SCROLL TO TOP BUTTON ===== -->
+  <button id="scrollTop" class="scroll-top-btn" onclick="scrollToTop()" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <!-- ===== LOGIN MODAL ===== -->
+  <div id="loginModal" class="modal-overlay" onclick="closeModalOutside(event, 'loginModal')">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('loginModal')"><i class="fas fa-times"></i></button>
+      <div class="modal-header">
+        <div class="modal-logo"><i class="fas fa-paper-plane"></i></div>
+        <h2>Welcome Back</h2>
+        <p>Sign in to your Wander Malaysia account</p>
+      </div>
+      <form class="modal-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="loginEmail" placeholder="your@email.com" required />
+          <span class="field-error" id="loginEmailError"></span>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-lock"></i> Password</label>
+          <div class="password-field">
+            <input type="password" id="loginPassword" placeholder="Enter your password" required />
+            <button type="button" class="toggle-pw" onclick="togglePassword('loginPassword')"><i class="fas fa-eye"></i></button>
+          </div>
+          <span class="field-error" id="loginPasswordError"></span>
+        </div>
+        <div class="form-options">
+          <label class="checkbox-label">
+            <input type="checkbox" /> Remember me
+          </label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+        <button type="submit" class="btn-modal-submit">
+          <i class="fas fa-sign-in-alt"></i> Sign In
+        </button>
+        <div class="modal-divider"><span>or continue with</span></div>
+        <div class="social-login">
+          <button type="button" class="btn-social google"><i class="fab fa-google"></i> Google</button>
+          <button type="button" class="btn-social facebook"><i class="fab fa-facebook-f"></i> Facebook</button>
+        </div>
+        <p class="modal-switch">Don't have an account? <a href="#" onclick="switchModal('loginModal','registerModal')">Register here</a></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== REGISTER MODAL ===== -->
+  <div id="registerModal" class="modal-overlay" onclick="closeModalOutside(event, 'registerModal')">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal('registerModal')"><i class="fas fa-times"></i></button>
+      <div class="modal-header">
+        <div class="modal-logo"><i class="fas fa-paper-plane"></i></div>
+        <h2>Create Account</h2>
+        <p>Join Wander Malaysia and start exploring</p>
+      </div>
+      <form class="modal-form" onsubmit="handleRegister(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label><i class="fas fa-user"></i> First Name</label>
+            <input type="text" id="regFirstName" placeholder="First name" required />
+          </div>
+          <div class="form-group">
+            <label><i class="fas fa-user"></i> Last Name</label>
+            <input type="text" id="regLastName" placeholder="Last name" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-envelope"></i> Email Address</label>
+          <input type="email" id="regEmail" placeholder="your@email.com" required />
+          <span class="field-error" id="regEmailError"></span>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-phone"></i> Phone Number</label>
+          <input type="tel" id="regPhone" placeholder="+60 12-345 6789" />
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-lock"></i> Password</label>
+          <div class="password-field">
+            <input type="password" id="regPassword" placeholder="Min. 8 characters" required />
+            <button type="button" class="toggle-pw" onclick="togglePassword('regPassword')"><i class="fas fa-eye"></i></button>
+          </div>
+          <span class="field-error" id="regPasswordError"></span>
+          <div class="password-strength" id="pwStrength"></div>
+        </div>
+        <div class="form-group">
+          <label><i class="fas fa-lock"></i> Confirm Password</label>
+          <div class="password-field">
+            <input type="password" id="regConfirmPassword" placeholder="Repeat your password" required />
+            <button type="button" class="toggle-pw" onclick="togglePassword('regConfirmPassword')"><i class="fas fa-eye"></i></button>
+          </div>
+          <span class="field-error" id="regConfirmError"></span>
+        </div>
+        <label class="checkbox-label terms-check">
+          <input type="checkbox" id="regTerms" required />
+          I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+        </label>
+        <button type="submit" class="btn-modal-submit">
+          <i class="fas fa-user-plus"></i> Create Account
+        </button>
+        <p class="modal-switch">Already have an account? <a href="#" onclick="switchModal('registerModal','loginModal')">Sign in here</a></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== BOOKING MODAL ===== -->
+  <div id="bookingModal" class="modal-overlay" onclick="closeModalOutside(event, 'bookingModal')">
+    <div class="modal modal-booking">
+      <button class="modal-close" onclick="closeModal('bookingModal')"><i class="fas fa-times"></i></button>
+      <div class="modal-header">
+        <div class="modal-logo"><i class="fas fa-suitcase"></i></div>
+        <h2>Book Your Trip</h2>
+        <p>Fill in your details to complete the booking</p>
+      </div>
+      <form class="modal-form" onsubmit="handleBooking(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your full name" required />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="your@email.com" required />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Phone</label>
+            <input type="tel" placeholder="+60 12-345 6789" required />
+          </div>
+          <div class="form-group">
+            <label>No. of Travellers</label>
+            <select required>
+              <option>1 Person</option>
+              <option>2 Persons</option>
+              <option>3 Persons</option>
+              <option>4+ Persons</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Travel Date</label>
+          <input type="date" required />
+        </div>
+        <div class="form-group">
+          <label>Special Requests</label>
+          <textarea rows="3" placeholder="Any special requirements or notes..."></textarea>
+        </div>
+        <button type="submit" class="btn-modal-submit">
+          <i class="fas fa-check-circle"></i> Confirm Booking
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== SUCCESS TOAST ===== -->
+  <div id="toast" class="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Action completed successfully!</span>
+  </div>
+
+  <!-- Main Script -->
+  <script src="script.js"></script>
+</body>
+</html>
